@@ -26,7 +26,7 @@ body {
 }
 
 h1 {
-  font-size: 2.4rem;
+  font-size: 2.6rem;
   margin-bottom: 10px;
 }
 
@@ -76,22 +76,22 @@ button {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* 💕 MARIO Y PEACH */
+/* 💖 MARIO Y PEACH */
 #mario {
-  display: none;
+  display: none; /* clave: oculto al inicio */
   margin-top: 20px;
 }
 
 #mario img {
-  width: 180px;   /* 👈 tamaño controlado */
-  max-width: 60%;
+  width: 200px;       /* tamaño normal */
+  max-width: 40%;     /* para que no ocupe toda la pantalla */
   height: auto;
   animation: aparecerMario 1s ease forwards;
 }
 
 @keyframes aparecerMario {
   from {
-    transform: scale(0.5);
+    transform: scale(0);
     opacity: 0;
   }
   to {
@@ -100,7 +100,7 @@ button {
   }
 }
 
-/* 💖 corazones */
+/* 💕 corazones */
 .heart {
   position: fixed;
   color: #ff1e56;
