@@ -25,6 +25,7 @@
       box-shadow: 0 15px 40px rgba(0,0,0,0.25);
       animation: aparecer 1.2s ease;
       max-width: 500px;
+      position: relative;
     }
 
     @keyframes aparecer {
@@ -42,7 +43,7 @@
       border-radius: 12px;
       cursor: pointer;
       margin: 10px;
-      transition: 0.2s;
+      transition: all 0.2s ease; /* Movimiento suave */
     }
 
     #yesBtn {
@@ -109,7 +110,7 @@
     <button id="noBtn">No 💔</button>
   </div>
 
-  <div id="message">🥰 Sabía que dirías que sí, mi vidaa. Gracias por hacerme tan feliz 💖</div>
+  <div id="message">🥰 Sabía que dirías que sí a la primera, mi vidaa. Gracias por hacerme tan feliz 💖</div>
   
   <div id="mario">
     <img src="https://i.pinimg.com/originals/84/6d/0d/846d0d409324a4b82e3849d80758c5ac.jpg" alt="Mario y Peach">
@@ -124,14 +125,14 @@
   const contenedorBotones = document.getElementById("botones");
 
   let frases = [
-    "¿Seguro? 😏",
-    "¿De verdad muy seguro? 🤨",
-    "¿Amorcito :(? 😐",
-    "¿Ah, de verdad no quieres? 😈",
-    "¿Sigues presionando que no? 😤",
+    "¿Seguro?",
+    "¿De verdad muy seguro?",
+    "¿Amorcito :(?",
+    "¿Ah, de verdad no quieres?",
+    "¿Sigues presionando que no?",
     "Te voy a acusar con Ariel Flores...",
-    "¿Ni eso sirvió? Bueno, pues...",
-    "La verdad es que no puedes salvarte de esta... 😌"
+    "¿Ni eso sirvió? Bueno...",
+    "La verdad es que no puedes salvarte de esta jiji"
   ];
 
   let contadorFrases = 0;
@@ -147,30 +148,31 @@
     }
   });
 
+  // El botón NO ahora controla todo con CLICS
   noBtn.addEventListener("click", () => {
+    // Fase 1: Cambiar frases
     if (contadorFrases < frases.length) {
       noBtn.innerText = frases[contadorFrases];
       contadorFrases++;
+      
+      // Cuando llega a la última frase ("no puedes salvarte"), activamos el escape
       if (contadorFrases === frases.length) {
         modoEscape = true;
       }
-    }
-  });
-
-  // MODIFICACIÓN: Aquí añadimos el mensaje cuando desaparece
-  noBtn.addEventListener("mouseover", () => {
-    if (!modoEscape) return;
-
-    if (contadorEscapes < 5) {
+    } 
+    // Fase 2: El botón se escapa al intentar clickearlo
+    else if (modoEscape && contadorEscapes < 5) {
       const x = Math.random() * (window.innerWidth - 150);
       const y = Math.random() * (window.innerHeight - 100);
       noBtn.style.position = "fixed";
       noBtn.style.left = x + "px";
       noBtn.style.top = y + "px";
       contadorEscapes++;
-    } else {
-      noBtn.style.display = "none"; // Desaparece el botón
-      alert("¡QUE NO PUEDES PRESIONAR QUE NO! 😤💖"); // El mensaje que querías
+    } 
+    // Fase 3: Desaparece y sale la alerta
+    else {
+      noBtn.style.display = "none";
+      alert("¡QUE NO PUEDES PRESIONAR QUE NO! 😤💖");
     }
   });
 
