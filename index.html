@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>San Valentín 💖</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #ff4d6d, #ff9aa2, #ffb7b2);
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      color: white;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
+      padding: 40px 50px;
+      border-radius: 25px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+      animation: aparecer 1.2s ease;
+    }
+
+    @keyframes aparecer {
+      from { transform: scale(0.5); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    h1 {
+      font-size: 2.6rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 25px;
+    }
+
+    button {
+      font-size: 1.2rem;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      margin: 10px;
+      transition: 0.2s;
+    }
+
+    #yesBtn {
+      background: #ff1e56;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      animation: latido 1s infinite;
+    }
+
+    @keyframes latido {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+
+    #noBtn {
+      background: #444;
+      color: white;
+    }
+
+    #message {
+      margin-top: 20px;
+      font-size: 1.5rem;
+      display: none;
+      animation: fadein 1s ease forwards;
+    }
+
+    @keyframes fadein {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .heart {
+      position: fixed;
+      color: #ff1e56;
+      font-size: 20px;
+      animation: fall linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      from {
+        transform: translateY(-10vh);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>💖 Martín Bustamante, ¿quieres ser mi San Valentín? 💖</h1>
+    <p>Prometo invitarte chocolate, besitos y soportar tu impuntualidad 😌💘</p>
+    <button id="yesBtn">Sí 💕</button>
+    <button id="noBtn">No 💔</button>
+    <div id="message">🥰 Sabía que dirías que sí, mi vidaaa. Gracias por hacerme tan feliz 💖</div>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const message = document.getElementById("message");
+
+    let frases = [
+      "¿Seguro? 😏",
+      "¿Segurísimo? 🤨",
+      "Martín... 🥺",
+      "Piénsalo bien 😭",
+      "No puedes decir que no 😡",
+      "Última oportunidad 😈"
+    ];
+
+    let contador = 0;
+
+    // Botón sí
+    yesBtn.addEventListener("click", () => {
+      message.style.display = "block";
+      for (let i = 0; i < 40; i++) {
+        crearCorazon();
+      }
+    });
+
+    // Botón no cambia texto
+    noBtn.addEventListener("click", () => {
+      if (contador < frases.length) {
+        noBtn.innerText = frases[contador];
+        contador++;
+      }
+    });
+
+    // Botón no se escapa
+    noBtn.addEventListener("mouseover", () => {
+      const x = Math.random() * (window.innerWidth - 120);
+      const y = Math.random() * (window.innerHeight - 60);
+      noBtn.style.position = "fixed";
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    });
+
+    // Corazones 💖
+    function crearCorazon() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }
+  </script>
+</body>
+</html>
