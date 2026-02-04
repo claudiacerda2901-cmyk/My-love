@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>San Valentín 💖</title>
+  <title>San Valentín para Martín 💖</title>
   <style>
     body {
       margin: 0;
@@ -25,6 +25,7 @@
       box-shadow: 0 15px 40px rgba(0,0,0,0.25);
       animation: aparecer 1.2s ease;
       max-width: 500px;
+      z-index: 1;
     }
 
     @keyframes aparecer {
@@ -42,7 +43,7 @@
       border-radius: 12px;
       cursor: pointer;
       margin: 10px;
-      transition: all 0.3s ease; /* Movimiento suave para que se vea a dónde va */
+      transition: all 0.3s ease; /* Movimiento suave */
     }
 
     #yesBtn {
@@ -62,7 +63,8 @@
     #noBtn { 
       background: #444; 
       color: white; 
-      z-index: 100; /* Para que siempre esté por encima de todo */
+      position: relative;
+      z-index: 100;
     }
 
     #message {
@@ -78,7 +80,7 @@
     }
 
     #mario img {
-      width: 250px;
+      width: 250px; /* Tamaño perfecto */
       border-radius: 15px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
@@ -94,6 +96,7 @@
       font-size: 20px;
       animation: fall linear forwards;
       pointer-events: none;
+      z-index: 0;
     }
 
     @keyframes fall {
@@ -130,18 +133,19 @@
   let frases = [
     "¿Seguro?",
     "¿De verdad muy seguro?",
-    "¿Amorcito :(? ",
-    "¿Ah, de verdad no quieres?",
+    "¿Amorcito :(?",
+    "¿Ah, de verdad no quieres? ",
     "¿Sigues presionando que no?",
     "Te voy a acusar con Ariel Flores...",
     "¿Ni eso sirvió? Bueno...",
-    "La verdad es que no puedes salvarte de esta jiji"
+    "La verdad es que no puedes salvarte de esta..."
   ];
 
   let contadorFrases = 0;
   let contadorEscapes = 0;
   let modoEscape = false;
 
+  // Acción SI
   yesBtn.addEventListener("click", () => {
     message.style.display = "block";
     mario.style.display = "block";
@@ -151,6 +155,7 @@
     }
   });
 
+  // Acción NO
   noBtn.addEventListener("click", () => {
     if (contadorFrases < frases.length) {
       noBtn.innerText = frases[contadorFrases];
@@ -160,14 +165,18 @@
       }
     } 
     else if (modoEscape && contadorEscapes < 5) {
-      // CALCULO DE MÁRGENES VISIBLES
-      // Restamos 200px de ancho y 100px de alto para que el botón no toque los bordes
-      const x = Math.random() * (window.innerWidth - 200) + 50;
-      const y = Math.random() * (window.innerHeight - 150) + 50;
-      
+      // Cálculo preciso para que no se salga de la pantalla
+      const btnRect = noBtn.getBoundingClientRect();
+      const maxX = window.innerWidth - btnRect.width - 40;
+      const maxY = window.innerHeight - btnRect.height - 40;
+
+      const randomX = Math.max(20, Math.floor(Math.random() * maxX));
+      const randomY = Math.max(20, Math.floor(Math.random() * maxY));
+
       noBtn.style.position = "fixed";
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
+      noBtn.style.left = randomX + "px";
+      noBtn.style.top = randomY + "px";
+      noBtn.style.margin = "0";
       
       contadorEscapes++;
     } 
