@@ -104,11 +104,13 @@
 </head>
 <body>
   <div class="card">
-    <h1>💖 Martín Bustamante, ¿quieres ser mi San Valentín? 💖</h1>
-    <p>Prometo invitarte chocolate, besitos y soportar tu impuntualidad 😌💘</p>
+    <h1>💖 Martín Bustamante, ¿Quieres ser mi San Valentín? 💖</h1>
+    <p>Prometo darte un lindo día, llenarte de besos y soportar tu impuntualidad 😌💘</p>
     <button id="yesBtn">Sí 💕</button>
     <button id="noBtn">No 💔</button>
-    <div id="message">🥰 Sabía que dirías que sí, mi vidaaa. Gracias por hacerme tan feliz 💖</div>
+    <div id="message">🥰 Sabía que dirías que sí, Mi vidaa. Gracias por hacerme tan feliz 💖</div>
+    <div id="mario">
+  <img src="https://i.imgur.com/2yaf2wb.gif" alt="Mario y Peach">
   </div>
 
   <script>
@@ -118,14 +120,17 @@
 
     let frases = [
       "¿Seguro? 😏",
-      "¿Segurísimo? 🤨",
-      "Martín... 🥺",
-      "Piénsalo bien 😭",
-      "No puedes decir que no 😡",
-      "Última oportunidad 😈"
+      "¿De verdad muy seguro? 🤨",
+      "¿Amorcito :(? 😐",
+      "¿Ah, de verdad no quieres? 😈",
+      "¿Sigues presionando que no? ",
+      "¿Te voy a acusar con Ariel Flores...",
+      "¿Ni eso sirvió? Bueno...",
+      "La verdad es que no puedes salvarte de esta... 😌"
     ];
 
     let contador = 0;
+    let modoEscape = false;
 
     // Botón sí
     yesBtn.addEventListener("click", () => {
@@ -135,16 +140,20 @@
       }
     });
 
-    // Botón no cambia texto
+    // Botón no: primero frases, luego escape
     noBtn.addEventListener("click", () => {
       if (contador < frases.length) {
         noBtn.innerText = frases[contador];
         contador++;
+        if (contador === frases.length) {
+          modoEscape = true;
+        }
       }
     });
 
-    // Botón no se escapa
+    // Escape solo después del mensaje final
     noBtn.addEventListener("mouseover", () => {
+      if (!modoEscape) return;
       const x = Math.random() * (window.innerWidth - 120);
       const y = Math.random() * (window.innerHeight - 60);
       noBtn.style.position = "fixed";
