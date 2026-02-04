@@ -100,6 +100,16 @@
         opacity: 0;
       }
     }
+    #mario {
+      display: none; /* Esto hace que no se vea al principio */
+      margin-top: 20px;
+    }
+
+    #mario img {
+      width: 250px; /* Aquí controlas el tamaño gigante. 250px es un buen tamaño */
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
   </style>
 </head>
 <body>
@@ -133,19 +143,23 @@
     let contador = 0;
     let modoEscape = false;
 
-    // Botón sí
-  yesBtn.addEventListener("click", () => {
-  message.style.display = "block";
+  
+  // Botón sí
+    yesBtn.addEventListener("click", () => {
+      message.style.display = "block"; // Muestra el texto
+      
+      const mario = document.getElementById("mario");
+      mario.style.display = "block";   // Muestra la imagen
+      
+      // Ocultamos los botones para que no estorben
+      yesBtn.style.display = "none";
+      noBtn.style.display = "none";
 
-  // Mostrar Mario y Peach 💕🍄
-  const mario = document.getElementById("mario");
-  mario.style.display = "block";
-
-  for (let i = 0; i < 40; i++) {
-    crearCorazon();
-  }
-});
-
+      for (let i = 0; i < 40; i++) {
+        crearCorazon();
+      }
+    });
+    
     // Botón no: primero frases, luego escape
     noBtn.addEventListener("click", () => {
       if (contador < frases.length) {
