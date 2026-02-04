@@ -13,6 +13,7 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      width: 100vw;
       text-align: center;
       color: white;
     }
@@ -24,7 +25,7 @@
       border-radius: 25px;
       box-shadow: 0 15px 40px rgba(0,0,0,0.25);
       animation: aparecer 1.2s ease;
-      max-width: 500px;
+      max-width: 80%;
       z-index: 1;
     }
 
@@ -43,7 +44,7 @@
       border-radius: 12px;
       cursor: pointer;
       margin: 10px;
-      transition: all 0.3s ease; /* Movimiento suave */
+      transition: all 0.3s ease-out; /* Movimiento más fluido */
     }
 
     #yesBtn {
@@ -63,8 +64,7 @@
     #noBtn { 
       background: #444; 
       color: white; 
-      position: relative;
-      z-index: 100;
+      z-index: 1000;
     }
 
     #message {
@@ -80,14 +80,14 @@
     }
 
     #mario img {
-      width: 250px; /* Tamaño perfecto */
+      width: 250px;
       border-radius: 15px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
 
     @keyframes fadein {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translateY(10px); opacity: 0; }
+      to { opacity: 1; transform: translateY(0); opacity: 1; }
     }
 
     .heart {
@@ -134,18 +134,17 @@
     "¿Seguro?",
     "¿De verdad muy seguro?",
     "¿Amorcito :(?",
-    "¿Ah, de verdad no quieres? ",
+    "¿Ah, de verdad no quieres?",
     "¿Sigues presionando que no?",
-    "Te voy a acusar con Ariel Flores...",
+    "Te voy a acusar con Ariel Flores... ",
     "¿Ni eso sirvió? Bueno...",
-    "La verdad es que no puedes salvarte de esta..."
+    "La verdad es que no puedes salvarte de esta jiji"
   ];
 
   let contadorFrases = 0;
   let contadorEscapes = 0;
   let modoEscape = false;
 
-  // Acción SI
   yesBtn.addEventListener("click", () => {
     message.style.display = "block";
     mario.style.display = "block";
@@ -155,8 +154,7 @@
     }
   });
 
-  // Acción NO
-  noBtn.addEventListener("click", () => {
+  noBtn.addEventListener("click", (e) => {
     if (contadorFrases < frases.length) {
       noBtn.innerText = frases[contadorFrases];
       contadorFrases++;
@@ -165,17 +163,24 @@
       }
     } 
     else if (modoEscape && contadorEscapes < 5) {
-      // Cálculo preciso para que no se salga de la pantalla
-      const btnRect = noBtn.getBoundingClientRect();
-      const maxX = window.innerWidth - btnRect.width - 40;
-      const maxY = window.innerHeight - btnRect.height - 40;
-
-      const randomX = Math.max(20, Math.floor(Math.random() * maxX));
-      const randomY = Math.max(20, Math.floor(Math.random() * maxY));
-
+      // Forzamos que el botón sea 'fixed' para que no dependa de la tarjeta
       noBtn.style.position = "fixed";
-      noBtn.style.left = randomX + "px";
-      noBtn.style.top = randomY + "px";
+      
+      // Obtenemos medidas exactas
+      const btnWidth = noBtn.offsetWidth;
+      const btnHeight = noBtn.offsetHeight;
+      
+      // Definimos zona segura (dejando un margen del 10%)
+      const padding = 50;
+      const maxX = window.innerWidth - btnWidth - padding;
+      const maxY = window.innerHeight - btnHeight - padding;
+
+      // Generamos coordenadas que SIEMPRE estén dentro
+      const randomX = Math.floor(Math.random() * (maxX - padding)) + padding;
+      const randomY = Math.floor(Math.random() * (maxY - padding)) + padding;
+
+      noBtn.style.left = `${randomX}px`;
+      noBtn.style.top = `${randomY}px`;
       noBtn.style.margin = "0";
       
       contadorEscapes++;
