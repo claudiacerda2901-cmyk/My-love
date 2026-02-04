@@ -113,5 +113,25 @@ button {
   to {
     transform: translateY(110vh);
     opacity: 0;
+  #mario {
+  display: none;
+  margin-top: 20px;
+}
+
+#mario img {
+  width: 200px;
+  max-width: 40%;
+  height: auto;
+  animation: aparecerMario 1s ease;
+}
+
+@keyframes aparecerMario {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
   }
 }
