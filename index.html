@@ -110,7 +110,7 @@
   <button id="noBtn">No 💔</button>
   <div id="message">🥰 Sabía que dirías que sí, Mi vidaa. Gracias por hacerme tan feliz 💖</div>
   <div id="mario">
-    <img src="https://i.imgur.com/2yaf2wb.gif" alt="Mario y Peach">
+    <img src="https://i.pinimg.com/originals/84/6d/0d/846d0d409324a4b82e3849d80758c5ac.jpg" alt="Mario y Peach">
   </div>
 </div>
 
@@ -134,12 +134,17 @@
     let modoEscape = false;
 
     // Botón sí
-    yesBtn.addEventListener("click", () => {
-      message.style.display = "block";
-      for (let i = 0; i < 40; i++) {
-        crearCorazon();
-      }
-    });
+  yesBtn.addEventListener("click", () => {
+  message.style.display = "block";
+
+  // Mostrar Mario y Peach 💕🍄
+  const mario = document.getElementById("mario");
+  mario.style.display = "block";
+
+  for (let i = 0; i < 40; i++) {
+    crearCorazon();
+  }
+});
 
     // Botón no: primero frases, luego escape
     noBtn.addEventListener("click", () => {
